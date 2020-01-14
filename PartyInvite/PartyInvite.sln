@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyInvite", "PartyInvite\PartyInvite.csproj", "{797AF944-5357-41BE-8C01-0A21B281756E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyInvite.Data", "PartyInvite.Data\PartyInvite.Data.csproj", "{F8AFA7EC-246D-42DB-8DA3-4CD9159913AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyInvite.Model", "PartyInvite.Model\PartyInvite.Model.csproj", "{8A502DB7-9CEA-451B-8A90-1C0E0FD4D124}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{797AF944-5357-41BE-8C01-0A21B281756E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{797AF944-5357-41BE-8C01-0A21B281756E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{797AF944-5357-41BE-8C01-0A21B281756E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8AFA7EC-246D-42DB-8DA3-4CD9159913AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8AFA7EC-246D-42DB-8DA3-4CD9159913AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8AFA7EC-246D-42DB-8DA3-4CD9159913AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8AFA7EC-246D-42DB-8DA3-4CD9159913AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A502DB7-9CEA-451B-8A90-1C0E0FD4D124}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A502DB7-9CEA-451B-8A90-1C0E0FD4D124}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A502DB7-9CEA-451B-8A90-1C0E0FD4D124}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A502DB7-9CEA-451B-8A90-1C0E0FD4D124}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

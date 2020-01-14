@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using PartyInvite.Data.Interfaces;
+using PartyInvite.Model;
 using PartyInvite.Models;
 
 namespace PartyInvite.Controllers
@@ -12,16 +14,52 @@ namespace PartyInvite.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IGreetingsService _greetingsService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,
+            IGreetingsService greetingsService)
         {
             _logger = logger;
+            _greetingsService = greetingsService;
         }
 
-        public ActionResult<string> Index()
+        public ViewResult Index()
         {
-            return "Hello Bhai Brothers";
-            //return View();
+            var result = _greetingsService.GetStatus();
+
+            ViewBag.Time = result["TimeNow"];
+            ViewBag.Greeting = result["GreetingsMessage"];
+
+            return View("MyView");
+        }
+
+        [HttpGet]
+        public ViewResult RvspForm()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ViewResult RvspForm(GuestResponse guestResponse)
+        {
+            if(ModelState.IsValid)
+            {
+                Repository.AddResponse(guestResponse);
+                return View("Thanks", guestResponse);
+            }
+            else
+            {
+                //there is a validation error
+                return View();
+            }
+        }
+
+        public ViewResult ListResponses()
+        {
+            return View(
+                Repository.Responses
+                .Where(x => x.WillAttend == true)
+                );
         }
 
         public IActionResult About()
