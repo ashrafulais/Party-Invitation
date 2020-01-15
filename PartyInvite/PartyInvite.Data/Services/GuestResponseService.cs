@@ -58,6 +58,13 @@ namespace PartyInvite.Data.Services
             }
         }
 
+        public GuestResponse GetGuestResponseService(int id)
+        {
+            return _unitofwork
+                ._guestResponseRepo
+                .GetGuestRepo(id);
+        }
+
         public void UpdateGuestService(GuestResponse guestResponse)
         {
             try

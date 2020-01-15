@@ -7,6 +7,7 @@ namespace PartyInvite.Data.Interfaces
 {
     public interface IGuestResponseService
     {
+        public GuestResponse GetGuestResponseService(int id);
         public void AddGuestService(GuestResponse guestResponse);
         public IList<GuestResponse> GetAllGuestsService();
         public void UpdateGuestService(GuestResponse guestResponse);

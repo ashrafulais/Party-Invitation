@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PartyInvite.Data.Interfaces;
+using PartyInvite.Data.Services;
 using PartyInvite.Model;
 
 namespace PartyInvite.Controllers
@@ -22,6 +23,13 @@ namespace PartyInvite.Controllers
         public string Get()
         {
             return "Hello";
+        }
+
+        [HttpGet("GetGuest/{id}")]
+        public JsonResult GetGuest(int id)
+        {
+            return Json(_guestResponseService
+                .GetGuestResponseService(id));
         }
 
         [HttpGet("EditGuest/{id}")]

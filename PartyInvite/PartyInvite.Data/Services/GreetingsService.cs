@@ -27,7 +27,7 @@ namespace PartyInvite.Data.Services
             {
                 status = "শুভ অপরাহ্ণ";
             }
-            else if (hour > 19 && hour <= 4)
+            else
             {
                 status = "শুভ রাত্রি";
             }
