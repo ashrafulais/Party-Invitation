@@ -30,7 +30,7 @@ namespace PartyInvite.Controllers
             ViewBag.Time = result["TimeNow"];
             ViewBag.Greeting = result["GreetingsMessage"];
 
-            return View("MyView");
+            return View();
         }
 
         [HttpGet]

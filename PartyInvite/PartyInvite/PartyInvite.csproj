@@ -20,4 +20,8 @@
     <ProjectReference Include="..\PartyInvite.Model\PartyInvite.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\img\" />
+  </ItemGroup>
+
 </Project>

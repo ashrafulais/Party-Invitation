@@ -27,5 +27,9 @@ namespace PartyInvite.Model
         [Required(ErrorMessage = "Please specify whether you'll attend")]
         public bool? WillAttend { get; set; }
 
+        [Required(ErrorMessage = "Please select a gift")]
+        [Column(TypeName = "varchar(100)")]
+        public string Gift { get; set; }
+
     }
 }

@@ -1,54 +1,52 @@
 ﻿@model PartyInvite.Model.GuestResponse
 
 @{
-    Layout = null;
+    ViewData["Title"] = "RSVP Form";
 }
 
-<!DOCTYPE html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>RsvpForm</title>
-    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-</head>
+<h2 class="font-weight-lighter">Let Us Know Your Presence</h2>
 
-<body class="container p-3">
-    <h2 class="font-weight-lighter">Let Us Know Your Presence</h2>
+<div class="w-75">
+    <!-- use /Home/FormControllerName for pure HTML -->
+    <form asp-action="RvspForm" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Name">Your Full Name *</label>
+            <input asp-for="Name" type="text" class="form-control" />
+        </div>
 
-    <div>
-        <!-- use /Home/FormControllerName for pure HTML -->
-        <form asp-action="RvspForm" method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name">Your Full Name *</label>
-                <input asp-for="Name" type="text" class="form-control" />
-            </div>
+        <div class="form-group">
+            <label asp-for="Email">Professional Email ID *</label>
+            <input asp-for="Email" type="email" class="form-control" />
+        </div>
 
-            <div class="form-group">
-                <label asp-for="Email">Professional Email ID *</label>
-                <input asp-for="Email" type="email" class="form-control" />
-            </div>
+        <div class="form-group">
+            <label asp-for="Phone">Your Phone Number *</label>
+            <input asp-for="Phone" type="tel" class="form-control" />
+        </div>
 
-            <div class="form-group">
-                <label asp-for="Phone">Your Phone Number *</label>
-                <input asp-for="Phone" type="tel" class="form-control" />
-            </div>
+        <div class="form-group">
+            <label asp>Will You Attend ? *</label>
 
-            <div class="form-group">
-                <label>Will You Attend ? *</label>
+            <select asp-for="WillAttend" class="form-check-label">
+                <option value="">Choose an option</option>
+                <option value="true">Yes, I'll be there</option>
+                <option value="false">Sorry, I can't</option>
+            </select>
+        </div>
 
-                <select asp-for="WillAttend" class="form-check-label">
-                    <option value="">Choose an option</option>
-                    <option value="true">Yes, I'll be there</option>
-                    <option value="false">Sorry, I can't</option>
-                </select>
-            </div>
+        <div class="form-group">
+            <label asp-for="Gift">Select a gift *</label>
 
-            <button type="submit" class="btn btn-primary"> Submit RSVP </button>
-        </form>
-    </div>
-    
-    <div class="mt-4">
-        <a asp-action="Index" class="btn btn-info">Homepage Link</a>
-    </div>
-</body>
-</html>
+            <select asp-for="Gift" class="form-check-label">
+                <option value="" selected>Choose an option</option>
+                <option value="notebook">Notebook</option>
+                <option value="islamicbook">Islamic Book</option>
+                <option value="electronics">Electronics</option>
+                <option value="nogift">No Gift</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary"> Submit RSVP </button>
+    </form>
+</div>
