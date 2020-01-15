@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PartyInvite.Data;
 
 namespace PartyInvite.Migrations
 {
     [DbContext(typeof(PartyContext))]
-    partial class PartyContextModelSnapshot : ModelSnapshot
+    [Migration("20200115150911_RemoveConstraints")]
+    partial class RemoveConstraints
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

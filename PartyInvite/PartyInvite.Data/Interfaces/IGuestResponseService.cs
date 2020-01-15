@@ -9,5 +9,7 @@ namespace PartyInvite.Data.Interfaces
     {
         public void AddGuestService(GuestResponse guestResponse);
         public IList<GuestResponse> GetAllGuestsService();
+        public void UpdateGuestService(GuestResponse guestResponse);
+        public void DeleteGuestService(int id);
     }
 }

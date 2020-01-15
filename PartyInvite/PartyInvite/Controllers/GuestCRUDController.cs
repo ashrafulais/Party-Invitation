@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using PartyInvite.Data.Interfaces;
 using PartyInvite.Model;
 
 namespace PartyInvite.Controllers
@@ -10,16 +11,48 @@ namespace PartyInvite.Controllers
     [Route("[controller]")]
     public class GuestCRUDController : Controller
     {
+        private readonly IGuestResponseService _guestResponseService;
+
+        public GuestCRUDController(IGuestResponseService guestResponseService)
+        {
+            _guestResponseService = guestResponseService;
+        }
+
+        [HttpGet]
+        public string Get()
+        {
+            return "Hello";
+        }
+
         [HttpGet("EditGuest/{id}")]
         public ViewResult EditGuest(int id)
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("EditGuest/{id}")]
         public ViewResult EditGuest(GuestResponse guestResponse)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                _guestResponseService
+                    .UpdateGuestService(guestResponse);
+                //Repository.AddResponse(guestResponse);
+                return View("Thanks", guestResponse);
+            }
+            else
+            {
+                //there is a validation error
+                return View();
+            }
+        }
+
+        [HttpGet("DeleteGuest/{id}")]
+        public ViewResult DeleteGuest(int id)
+        {
+            _guestResponseService
+                .DeleteGuestService(id);
+            return View("~/Views/ListResponses");
         }
 
     }

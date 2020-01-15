@@ -10,8 +10,8 @@ using PartyInvite.Data;
 namespace PartyInvite.Migrations
 {
     [DbContext(typeof(PartyContext))]
-    [Migration("20200115113952_InitialContext")]
-    partial class InitialContext
+    [Migration("20200115145712_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,21 @@ namespace PartyInvite.Migrations
                 .HasAnnotation("ProductVersion", "3.1.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("PartyInvite.Model.Gift", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Gifts");
+                });
 
             modelBuilder.Entity("PartyInvite.Model.GuestResponse", b =>
                 {
@@ -32,9 +47,8 @@ namespace PartyInvite.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
-                    b.Property<string>("Gift")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)");
+                    b.Property<int>("GiftId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -50,7 +64,18 @@ namespace PartyInvite.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GiftId");
+
                     b.ToTable("GuestResponses");
+                });
+
+            modelBuilder.Entity("PartyInvite.Model.GuestResponse", b =>
+                {
+                    b.HasOne("PartyInvite.Model.Gift", "Gifts")
+                        .WithMany("GuestResponses")
+                        .HasForeignKey("GiftId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

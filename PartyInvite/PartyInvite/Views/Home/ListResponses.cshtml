@@ -12,7 +12,7 @@
         <th>Name</th>
         <th>Email</th>
         <th>Phone</th>
-        <th>Gift</th>
+        <th>Gift ID</th>
         <th>Action</th>
     </tr>
 
@@ -25,8 +25,7 @@
         <td>@r.Phone</td>
         <td>@r.GiftId</td>
         <td>
-            <a asp-controller="GuestCRUD" asp-action="EditGuest" asp-route-Id="@r.Id"  class="btn btn-outline-success p-0"> 📝 </a>
-
+            <a asp-controller="GuestCRUD" asp-action="EditGuest" asp-route-Id="@r.Id" class="btn btn-outline-success p-0"> 📝 </a>
             <a asp-controller="GuestCRUD" asp-action="DeleteGuest" asp-route-Id="@r.Id" class="btn btn-outline-danger p-0"> ❌ </a>
         </td>
     </tr>

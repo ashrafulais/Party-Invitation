@@ -20,9 +20,26 @@ namespace PartyInvite.Data.Repositories
             _context.GuestResponses.Add(guestResponse);
         }
 
+        public void DeleteGuestRepo(GuestResponse guestResponse)
+        {
+            _context.GuestResponses.Remove(guestResponse);
+        }
+
         public IList<GuestResponse> GetAllGuestsRepo()
         {
             return _context.GuestResponses.Where(x => x.WillAttend == true).ToList();
+        }
+
+        public GuestResponse GetGuestRepo(int id)
+        {
+            return _context.GuestResponses.Where(
+                x => x.Id == id).FirstOrDefault();
+        }
+
+        public void UpdateGuestRepo(GuestResponse guestResponse)
+        {
+            _context.GuestResponses
+                .Update(guestResponse);
         }
     }
 }
