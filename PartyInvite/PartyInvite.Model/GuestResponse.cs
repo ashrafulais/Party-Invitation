@@ -29,7 +29,9 @@ namespace PartyInvite.Model
 
         [Required(ErrorMessage = "Please select a gift")]
         [Column(TypeName = "varchar(100)")]
-        public string Gift { get; set; }
+        public int GiftId { get; set; }
 
+        [NotMapped]
+        public Gift GuestGift { get; set; }
     }
 }

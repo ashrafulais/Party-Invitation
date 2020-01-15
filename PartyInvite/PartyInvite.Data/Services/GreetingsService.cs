@@ -19,15 +19,15 @@ namespace PartyInvite.Data.Services
             {
                 status = "শুভ সকাল";
             }
-            else if (hour > 12 && hour <= 16)
+            else if (hour > 12 && hour <= 14)
             {
                 status = "শুভ দুপুর";
             }
-            else if (hour > 16 && hour <= 21)
+            else if (hour > 14 && hour <= 18)
             {
                 status = "শুভ অপরাহ্ণ";
             }
-            else if (hour > 21 && hour <= 4)
+            else if (hour > 19 && hour <= 4)
             {
                 status = "শুভ রাত্রি";
             }

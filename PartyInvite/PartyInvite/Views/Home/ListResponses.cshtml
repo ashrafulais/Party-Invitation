@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PartyInvite.Model.GuestResponse> 
+﻿@model IEnumerable<PartyInvite.Model.GuestResponse>
 
 @{
     ViewData["Title"] = "Responses";
@@ -8,20 +8,27 @@
 
 <table class="table table-bordered">
     <tr>
+        <th>Id</th>
         <th>Name</th>
         <th>Email</th>
         <th>Phone</th>
         <th>Gift</th>
+        <th>Action</th>
     </tr>
 
-    @foreach(PartyInvite.Model.GuestResponse r in Model)
+    @foreach (PartyInvite.Model.GuestResponse r in Model)
     {
     <tr>
+        <td>@r.Id</td>
         <td>@r.Name</td>
         <td>@r.Email</td>
         <td>@r.Phone</td>
-        <td>@r.Gift</td>
+        <td>@r.GiftId</td>
+        <td>
+            <a asp-controller="GuestCRUD" asp-action="EditGuest" asp-route-Id="@r.Id"  class="btn btn-outline-success p-0"> 📝 </a>
+
+            <a asp-controller="GuestCRUD" asp-action="DeleteGuest" asp-route-Id="@r.Id" class="btn btn-outline-danger p-0"> ❌ </a>
+        </td>
     </tr>
     }
-
 </table>

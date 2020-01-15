@@ -15,12 +15,15 @@ namespace PartyInvite.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IGreetingsService _greetingsService;
+        private readonly IGuestResponseService _guestResponseService;
 
         public HomeController(ILogger<HomeController> logger,
-            IGreetingsService greetingsService)
+            IGreetingsService greetingsService,
+            IGuestResponseService guestResponseService)
         {
             _logger = logger;
             _greetingsService = greetingsService;
+            _guestResponseService = guestResponseService;
         }
 
         public ViewResult Index()
@@ -42,9 +45,11 @@ namespace PartyInvite.Controllers
         [HttpPost]
         public ViewResult RvspForm(GuestResponse guestResponse)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                Repository.AddResponse(guestResponse);
+                _guestResponseService
+                    .AddGuestService(guestResponse);
+                //Repository.AddResponse(guestResponse);
                 return View("Thanks", guestResponse);
             }
             else
@@ -57,9 +62,13 @@ namespace PartyInvite.Controllers
         public ViewResult ListResponses()
         {
             return View(
-                Repository.Responses
-                .Where(x => x.WillAttend == true)
+                _guestResponseService.GetAllGuestsService()
                 );
+
+            //return View(
+            //    Repository.Responses
+            //    .Where(x => x.WillAttend == true)
+            //    );
         }
 
         public IActionResult About()
