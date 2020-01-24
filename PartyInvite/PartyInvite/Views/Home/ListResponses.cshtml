@@ -12,7 +12,7 @@
         <th>Name</th>
         <th>Email</th>
         <th>Phone</th>
-        <th>Gift ID</th>
+        <th>Gift Name</th>
         <th>Action</th>
     </tr>
 
@@ -23,26 +23,12 @@
         <td>@r.Name</td>
         <td>@r.Email</td>
         <td>@r.Phone</td>
-        <td>@r.GiftId</td>
+        <td>@r.GiftName</td>
         <td>
-            <a class="btn btn-outline-success p-0 btn-edit"> 📝 </a>
+            <a asp-controller="GuestCRUD" asp-action="EditGuest" asp-route-Id=@r.Id class="btn btn-outline-success p-0 btn-edit"> 📝 </a>
+            <a asp-controller="GuestCRUD" asp-action="DeleteGuest" asp-route-Id=@r.Id class="btn btn-outline-danger p-0 btn-delete"> ❌ </a>
         </td>
 
     </tr>
     }
 </table>
-
-<!--
-
-<a asp-controller="GuestCRUD" asp-action="EditGuest" asp-route-Id="r.Id" class="btn btn-outline-success p-0 btn-edit"> 📝 </a>
-            <a asp-controller="GuestCRUD" asp-action="DeleteGuest" asp-route-Id="r.Id" class="btn btn-outline-danger p-0 btn-delete"> ❌ </a>
--->
-<style>
-    td {
-        cursor: pointer;
-    }
-
-    .selected {
-        background-color: #0094ff;
-    }
-</style>

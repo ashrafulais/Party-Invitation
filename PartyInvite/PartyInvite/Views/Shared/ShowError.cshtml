@@ -1,0 +1,20 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "ShowError";
+}
+
+<div class="container">
+    <p>
+        @if (Model.RequestId != null)
+        {
+            <h1>Error Occurred</h1>
+            <span class="text-danger">Error:</span>
+            <span class="text-dark"> @Model.RequestId </span>
+        }
+        else
+        {
+            <span class="text-warning"> Empty </span>
+        }
+    </p>
+</div>
+

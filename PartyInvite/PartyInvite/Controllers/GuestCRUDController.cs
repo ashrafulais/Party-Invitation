@@ -13,10 +13,12 @@ namespace PartyInvite.Controllers
     public class GuestCRUDController : Controller
     {
         private readonly IGuestResponseService _guestResponseService;
+        private readonly IGiftRepo _giftRepo;
 
-        public GuestCRUDController(IGuestResponseService guestResponseService)
+        public GuestCRUDController(IGuestResponseService guestResponseService, IGiftRepo giftRepo)
         {
             _guestResponseService = guestResponseService;
+            _giftRepo = giftRepo;
         }
 
         [HttpGet]

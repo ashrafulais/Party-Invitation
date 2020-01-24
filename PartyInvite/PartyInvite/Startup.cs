@@ -42,6 +42,9 @@ namespace PartyInvite
             services.AddTransient<IGuestResponseRepo, GuestResponseRepo>()
                 .AddTransient<IGuestResponseService, GuestResponseService>();
 
+            services.AddTransient<IGiftRepo, GiftRepo>()
+                .AddTransient<IGiftService, GiftService>();
+
             services.AddTransient<IUnitofwork>(
                 x=> new Unitofwork(connection, migration));
 

@@ -28,10 +28,10 @@ namespace PartyInvite.Model
         public bool? WillAttend { get; set; }
 
         [Required(ErrorMessage = "Please select a gift")]
-        [Column(TypeName = "int")]
-        public int GiftId { get; set; }
+        [Column(TypeName = "varchar(100)")]
+        public string GiftName { get; set; }
 
-        [NotMapped]
-        public Gift Gifts { get; set; }
+        //[NotMapped]
+        //public Gift Gifts { get; set; }
     }
 }

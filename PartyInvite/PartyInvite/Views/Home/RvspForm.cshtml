@@ -1,4 +1,5 @@
-﻿@model PartyInvite.Model.GuestResponse
+﻿@using PartyInvite.Model
+@model PartyInvite.Model.GuestResponse
 
 @{
     ViewData["Title"] = "RSVP Form";
@@ -28,7 +29,7 @@
         <div class="form-group">
             <label asp-for="WillAttend" asp>Will You Attend ? *</label>
 
-            <select asp-for="WillAttend" class="form-check-label">
+            <select asp-for="WillAttend" class="form-control">
                 <option value="">Choose an option</option>
                 <option value="true">Yes, I'll be there</option>
                 <option value="false">Sorry, I can't</option>
@@ -36,15 +37,15 @@
         </div>
 
         <div class="form-group">
-            <label asp-for="GiftId">Select a gift *</label>
+            <label asp-for="GiftName">Gift name please *</label>
+            <input asp-for="GiftName" type="text" list="browsers" placeholder="Select or write giftname" class="form-control">
+            <datalist id="browsers">
 
-            <select asp-for="GiftId" class="form-check-label">
-                <option value="" selected>Choose an option</option>
-                <option value="1">Notebook</option>
-                <option value="2">Islamic Book</option>
-                <option value="3">Electronics</option>
-                <option value="0">No Gift</option>
-            </select>
+                @foreach (var gift in (IEnumerable<Gift>)ViewData["GiftList"])
+                {
+                    <option value="@gift.Name">@gift.Name</option>
+                }
+            </datalist>
         </div>
 
         <button type="submit" class="btn btn-primary"> Submit RSVP </button>

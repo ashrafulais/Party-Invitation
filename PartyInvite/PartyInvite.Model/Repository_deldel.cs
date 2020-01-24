@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PartyInvite.Model
 {
-    public class Repository
+    public class Repository_deldel
     {
         private static List<GuestResponse> responses = new List<GuestResponse>();
 
