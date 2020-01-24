@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using PartyInvite.Data.Interfaces;
 using PartyInvite.Data.Services;
 using PartyInvite.Model;
+using PartyInvite.Models;
 
 namespace PartyInvite.Controllers
 {
@@ -13,12 +14,12 @@ namespace PartyInvite.Controllers
     public class GuestCRUDController : Controller
     {
         private readonly IGuestResponseService _guestResponseService;
-        private readonly IGiftRepo _giftRepo;
+        private readonly IGiftService _giftService;
 
-        public GuestCRUDController(IGuestResponseService guestResponseService, IGiftRepo giftRepo)
+        public GuestCRUDController(IGuestResponseService guestResponseService, IGiftService giftService)
         {
             _guestResponseService = guestResponseService;
-            _giftRepo = giftRepo;
+            _giftService = giftService;
         }
 
         [HttpGet]
@@ -37,7 +38,20 @@ namespace PartyInvite.Controllers
         [HttpGet("EditGuest/{id}")]
         public ViewResult EditGuest(int id)
         {
-            return View();
+            try
+            {
+                GuestResponse guest = _guestResponseService
+                .GetGuestResponseService(id);
+                ViewData["GuestInfo"] = guest;
+                ViewData["GiftList"] = _giftService.GetGiftsService();
+                return View();
+            }
+            catch(Exception e)
+            {
+                return View("ShowError", new ErrorViewModel { 
+                    RequestId = e.Message.ToString()
+                });
+            }
         }
 
         [HttpPost("EditGuest/{id}")]
@@ -48,21 +62,34 @@ namespace PartyInvite.Controllers
                 _guestResponseService
                     .UpdateGuestService(guestResponse);
                 //Repository.AddResponse(guestResponse);
-                return View("Thanks", guestResponse);
+                ViewData["Message"] = guestResponse.Name + ", Your response updated successfully.";
+                return View("Message");
             }
             else
             {
                 //there is a validation error
-                return View();
+                return View("ShowError", new ErrorViewModel
+                {
+                    RequestId = "Failed, Updating request. Please Check input values."
+                });
             }
         }
 
         [HttpGet("DeleteGuest/{id}")]
         public ViewResult DeleteGuest(int id)
         {
-            _guestResponseService
+            try
+            {
+                _guestResponseService
                 .DeleteGuestService(id);
-            return View("~/Views/ListResponses");
+                ViewData["Message"] = "Record Deleted";
+                return View("Message");
+            }
+            catch (Exception e)
+            {
+                ViewData["Message"] = "Failed deletion: " + e.Message;
+                return View("Message");
+            }
         }
 
     }

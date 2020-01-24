@@ -1,48 +1,55 @@
-﻿@model PartyInvite.Model.GuestResponse
+﻿@using PartyInvite.Model
+@model PartyInvite.Model.GuestResponse
 
 @{
     ViewData["Title"] = "Update Rvsp";
 }
 
-<h2 class="font-weight-lighter">Edit response</h2>
+<h2 class="font-weight-lighter">Update response</h2>
 
 <div class="w-75">
+    @{
+        var guestdata = (GuestResponse)ViewData["GuestInfo"];
+    }
+
     <!-- use /Home/FormControllerName for pure HTML -->
     <form asp-controller="GuestCRUD" asp-action="EditGuest" method="post">
         <div asp-validation-summary="All" class="text-danger"></div>
         <div class="form-group">
             <label asp-for="Name">Your Full Name *</label>
-            <input asp-for="Name" type="text" class="form-control" />
+            <input asp-for="Name" type="text" class="form-control" value="@guestdata.Name"/>
         </div>
 
         <div class="form-group">
             <label asp-for="Email">Professional Email ID *</label>
-            <input asp-for="Email" type="email" class="form-control" />
+            <input asp-for="Email" type="email" class="form-control" value="@guestdata.Email"/>
         </div>
 
         <div class="form-group">
             <label asp-for="Phone">Your Phone Number *</label>
-            <input asp-for="Phone" type="tel" class="form-control" />
+            <input asp-for="Phone" type="tel" class="form-control" value="@guestdata.Phone"/>
         </div>
 
         <div class="form-group">
             <label asp-for="WillAttend" asp>Will You Attend ? *</label>
 
-            <select asp-for="WillAttend" class="form-check-label">
-                <option value="true" selected>Yes, I'll be there</option>
+            <select asp-for="WillAttend" class="form-control">
+                <option value="">Choose an option</option>
+                <option value="true">Yes, I'll be there</option>
                 <option value="false">Sorry, I can't</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label asp-for="GiftName">Select a gift *</label>
+            <label asp-for="GiftName">Gift name please *</label>
+            <input asp-for="GiftName" type="text" list="browsers" placeholder="Select or write giftname" class="form-control" value="@guestdata.GiftName">
+            <datalist id="browsers">
 
-            <select asp-for="GiftName" class="form-check-label">
-                <option value="1" selected>Notebook</option>
-                <option value="2">Islamic Book</option>
-                <option value="3">Electronics</option>
-                <option value="0">No Gift</option>
-            </select>
+                @foreach (var gift in (IEnumerable<Gift>)ViewData["GiftList"])
+                {
+                    <option value="@gift.Name">@gift.Name</option>
+                }
+            </datalist>
         </div>
 
         <button type="submit" class="btn btn-primary"> Update RSVP </button>

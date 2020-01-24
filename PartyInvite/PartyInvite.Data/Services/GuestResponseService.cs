@@ -9,6 +9,7 @@ namespace PartyInvite.Data.Services
     public class GuestResponseService : IGuestResponseService
     {
         IUnitofwork _unitofwork;
+        
         public GuestResponseService(IUnitofwork unitofwork)
         {
             _unitofwork = unitofwork;
@@ -49,6 +50,7 @@ namespace PartyInvite.Data.Services
         {
             try
             {
+
                 return _unitofwork.
                 _guestResponseRepo.GetAllGuestsRepo();
             }
@@ -60,17 +62,25 @@ namespace PartyInvite.Data.Services
 
         public GuestResponse GetGuestResponseService(int id)
         {
-            return _unitofwork
+            GuestResponse guest = _unitofwork
                 ._guestResponseRepo
                 .GetGuestRepo(id);
+            if (guest is null)
+            {
+                throw new Exception("Guest Not Found");
+            }
+            else
+            {
+                return guest;
+            }
         }
 
         public void UpdateGuestService(GuestResponse guestResponse)
         {
             try
             {
-                GuestResponse originalguest = _unitofwork._guestResponseRepo
-                .GetGuestRepo(guestResponse.Id);
+                //GuestResponse originalguest = _unitofwork._guestResponseRepo
+                //.GetGuestRepo(guestResponse.Id);
 
                 _unitofwork._guestResponseRepo
                     .UpdateGuestRepo(guestResponse);

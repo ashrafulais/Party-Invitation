@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Message";
+}
+
+@{
+    string result = ViewData["Message"].ToString();
+
+    if (result.Length > 0)
+    {
+        <h2 class="display-4 text-dark"> @result </h2>
+    }
+    else
+    {
+        <p class="text-danger"> No Message.</p>
+    }
+}

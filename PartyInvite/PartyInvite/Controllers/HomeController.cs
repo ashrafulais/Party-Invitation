@@ -16,17 +16,17 @@ namespace PartyInvite.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IGreetingsService _greetingsService;
         private readonly IGuestResponseService _guestResponseService;
-        private readonly IGiftRepo _giftRepo;
+        private readonly IGiftService _giftService;
 
         public HomeController(ILogger<HomeController> logger,
             IGreetingsService greetingsService,
             IGuestResponseService guestResponseService,
-            IGiftRepo giftRepo)
+            IGiftService giftService)
         {
             _logger = logger;
             _greetingsService = greetingsService;
             _guestResponseService = guestResponseService;
-            _giftRepo = giftRepo;
+            _giftService = giftService;
         }
 
         public ViewResult Index()
@@ -42,7 +42,7 @@ namespace PartyInvite.Controllers
         [HttpGet]
         public ViewResult RvspForm()
         {
-            ViewData["GiftList"] = (IEnumerable<Gift>)_giftRepo.GetGiftsRepo();
+            ViewData["GiftList"] = _giftService.GetGiftsService();
             return View();
         }
 
@@ -100,7 +100,7 @@ namespace PartyInvite.Controllers
         }
 
         [HttpGet]
-        public IActionResult ShowError(string error)
+        public IActionResult ShowError(string error="vvdvs")
         {
             //ViewBag["Error"] = error;
             return View(new ErrorViewModel { RequestId = error });
