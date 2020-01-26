@@ -9,9 +9,10 @@ namespace PartyInvite.Data.Interfaces
     {
         public void AddGuestRepo(GuestResponse guestResponse);
         public IList<GuestResponse> GetAllGuestsRepo();
+        public IList<GuestResponse> SearchGuestsRepo(string text);
         public GuestResponse GetGuestRepo(int id);
         public void UpdateGuestRepo(GuestResponse guestResponse);
         public void DeleteGuestRepo(GuestResponse guestResponse);
-        //public Gift GetGift(int id);
+        public IList<GuestResponse> PaginateRepo(int skipnum, int pagesize);
     }
 }

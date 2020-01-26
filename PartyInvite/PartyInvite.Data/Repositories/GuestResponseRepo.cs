@@ -36,6 +36,21 @@ namespace PartyInvite.Data.Repositories
                 x => x.Id == id).FirstOrDefault();
         }
 
+        public IList<GuestResponse> PaginateRepo(int skipnum, int pagesize)
+        {
+            return _context.GuestResponses
+                .Skip(skipnum)
+                .Take(pagesize)
+                .ToList();
+        }
+
+        public IList<GuestResponse> SearchGuestsRepo(string text)
+        {
+            return _context.GuestResponses
+                .Where(x => x.Name.Contains(text))
+                .ToList();
+        }
+
         public void UpdateGuestRepo(GuestResponse guestResponse)
         {
             _context.GuestResponses

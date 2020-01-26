@@ -75,6 +75,35 @@ namespace PartyInvite.Data.Services
             }
         }
 
+        public IList<GuestResponse> PaginateService(int pagenum, int pagesize)
+        {
+            try
+            {
+                int skipnum = (pagenum-1) * pagesize;
+                skipnum = skipnum < 0 ? 0 : skipnum;
+
+                return _unitofwork._guestResponseRepo
+                .PaginateRepo(skipnum, pagesize);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error paginating: " + e.Message);
+            }
+        }
+
+        public IList<GuestResponse> SearchGuestsService(string text)
+        {
+            try
+            {
+                return _unitofwork.
+                _guestResponseRepo.SearchGuestsRepo(text);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error: " + e.Message);
+            }
+        }
+
         public void UpdateGuestService(GuestResponse guestResponse)
         {
             try

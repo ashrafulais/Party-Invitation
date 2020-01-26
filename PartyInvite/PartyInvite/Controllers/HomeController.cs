@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -11,6 +12,7 @@ using PartyInvite.Models;
 
 namespace PartyInvite.Controllers
 {
+    //[Route("[controller]/[action]")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -59,21 +61,80 @@ namespace PartyInvite.Controllers
             }
             else
             {
-                //there is a validation error
-                return View();
+                ViewData["Message"] = "Failed :" + ModelState.IsValid;
+                return View("Message");
             }
         }
 
+        [HttpGet]
         public ViewResult ListResponses()
         {
-            return View(
-                _guestResponseService.GetAllGuestsService()
-                );
+            try
+            {
+                return View(
+                    _guestResponseService.GetAllGuestsService()
+                    );
+            }
+            catch (Exception e)
+            {
+                ViewData["Message"] = "Failed Fetching:" + e.Message;
+                return View("Message");
+            }
 
             //return View(
             //    Repository.Responses
             //    .Where(x => x.WillAttend == true)
             //    );
+        }
+
+        [HttpPost]
+        public ViewResult ListResponses(string search)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(search))
+                {
+                    return View(
+                        _guestResponseService.SearchGuestsService(search));
+                }
+                else
+                {
+                    throw new Exception("Invalid input");
+                }
+            }
+            catch (Exception e)
+            {
+                ViewData["Message"] = "Failed searching:" + e.Message;
+                return View("Message");
+            }
+        }
+
+        [HttpGet("{pagenumber}")]
+        public string Paginate(int pagenumber)
+        {
+            try
+            {
+                // {"pagesize":12}
+                int pagesize = 2;
+                return pagenumber.ToString();
+
+                //if (pagenumber > 0)
+                //{
+                //    return JsonSerializer
+                //    .Serialize(_guestResponseService
+                //    .PaginateService(pagenumber, pagesize)
+                //    );
+                //}
+                //else
+                //{
+                //    throw new Exception("Invalid input");
+                //}
+            }
+            catch (Exception e)
+            {
+                //["Message"] = "Failed:" + e.Message;
+                return "Failed Msg: " + e.Message;
+            }
         }
 
         public IActionResult About()
@@ -84,7 +145,7 @@ namespace PartyInvite.Controllers
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page";
+            //ViewData["Message"] = "Your contact page";
             return View();
         }
 
@@ -97,13 +158,6 @@ namespace PartyInvite.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-        [HttpGet]
-        public IActionResult ShowError(string error="vvdvs")
-        {
-            //ViewBag["Error"] = error;
-            return View(new ErrorViewModel { RequestId = error });
         }
     }
 }

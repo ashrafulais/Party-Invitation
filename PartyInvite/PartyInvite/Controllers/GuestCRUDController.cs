@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PartyInvite.Data.Interfaces;
@@ -48,9 +49,8 @@ namespace PartyInvite.Controllers
             }
             catch(Exception e)
             {
-                return View("ShowError", new ErrorViewModel { 
-                    RequestId = e.Message.ToString()
-                });
+                ViewData["Message"] = e.Message.ToString();
+                return View("Message");
             }
         }
 
@@ -68,10 +68,8 @@ namespace PartyInvite.Controllers
             else
             {
                 //there is a validation error
-                return View("ShowError", new ErrorViewModel
-                {
-                    RequestId = "Failed, Updating request. Please Check input values."
-                });
+                ViewData["Message"] = "Failed, Updating request. Please Check input values.";
+                return View("Message");
             }
         }
 

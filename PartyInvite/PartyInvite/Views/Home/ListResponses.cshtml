@@ -6,37 +6,62 @@
 
 <h2>People will attend </h2>
 
-<table class="table table-bordered">
-    <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Gift Name</th>
-        <th>Action</th>
-    </tr>
+<div>
+    <p id="responsesmessage"> </p>
+</div>
 
-    @foreach (PartyInvite.Model.GuestResponse r in Model)
-    {
-    <tr>
-        <td>@r.Id</td>
-        <td>@r.Name</td>
-        <td>@r.Email</td>
-        <td>@r.Phone</td>
-        <td>@r.GiftName</td>
-        <td>
-            <a asp-controller="GuestCRUD" asp-action="EditGuest" asp-route-Id=@r.Id class="btn btn-outline-success p-0 btn-edit"> 📝 </a>
-            <a asp-controller="GuestCRUD" asp-action="DeleteGuest" asp-route-Id=@r.Id class="btn btn-outline-danger p-0 btn-delete"> ❌ </a>
-        </td>
+<div class="row mt-2 mb-2">    
+    <form id="listpage_searchform" class="form-inline" method="post">
+        <div class="form-group">
+            <label for="searchtext">Search text: </label>
+            <input type="text" name="search" class="form-control" />
+        </div>
 
-    </tr>
-    }
+        <button type="submit" class="btn btn-primary ml-2">Submit</button>
+    </form>
+</div>
+
+<table id="listresponses_table" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Gift Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (PartyInvite.Model.GuestResponse r in Model)
+        {
+            <tr>
+                <td>@r.Id</td>
+                <td>@r.Name</td>
+                <td>@r.Email</td>
+                <td>@r.Phone</td>
+                <td>@r.GiftName</td>
+                <td>
+                    <a asp-controller="GuestCRUD" asp-action="EditGuest" asp-route-Id=@r.Id class="btn btn-outline-success p-0 btn-edit"> 📝 </a>
+                    <a asp-controller="GuestCRUD" asp-action="DeleteGuest" asp-route-Id=@r.Id class="btn btn-outline-danger p-0 btn-delete"> ❌ </a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
 </table>
+@{
+    var pagesize = 2.0;
+    var count = @Model.Count();
+    var iterators = Math.Ceiling(count/pagesize);
+}
 
-<div class="d-flex">
+<div id="listresponses" class="d-flex">
     <ul class="pagination mx-auto">
-        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        @for (int i = 1; i <= iterators; i++)
+        {
+            <li class="page-item"><a class="page-link" href="#">@i</a></li>
+        }
     </ul>
 </div>
