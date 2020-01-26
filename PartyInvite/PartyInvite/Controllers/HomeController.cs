@@ -66,6 +66,7 @@ namespace PartyInvite.Controllers
             }
         }
 
+
         [HttpGet]
         public ViewResult ListResponses()
         {
@@ -80,11 +81,6 @@ namespace PartyInvite.Controllers
                 ViewData["Message"] = "Failed Fetching:" + e.Message;
                 return View("Message");
             }
-
-            //return View(
-            //    Repository.Responses
-            //    .Where(x => x.WillAttend == true)
-            //    );
         }
 
         [HttpPost]
@@ -109,26 +105,24 @@ namespace PartyInvite.Controllers
             }
         }
 
-        [HttpGet("{pagenumber}")]
+        [HttpPost("Paginate")]
         public string Paginate(int pagenumber)
         {
             try
             {
-                // {"pagesize":12}
                 int pagesize = 2;
-                return pagenumber.ToString();
 
-                //if (pagenumber > 0)
-                //{
-                //    return JsonSerializer
-                //    .Serialize(_guestResponseService
-                //    .PaginateService(pagenumber, pagesize)
-                //    );
-                //}
-                //else
-                //{
-                //    throw new Exception("Invalid input");
-                //}
+                if (pagenumber > 0)
+                {
+                    return JsonSerializer
+                    .Serialize(_guestResponseService
+                    .PaginateService(pagenumber, pagesize)
+                    );
+                }
+                else
+                {
+                    throw new Exception("Invalid input");
+                }
             }
             catch (Exception e)
             {

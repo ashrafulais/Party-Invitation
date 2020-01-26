@@ -3,34 +3,71 @@
 
 // Write your JavaScript code.
 
-$("#listresponses .pagination .page-item").click(function () {
-    var pagenum = $(this).text();
-    var datapack = {
-        pagenumber: pagenum
-    }
-    //listresponses_table
-    var request;
-     //Abort any pending request
-    if (request) {
-        request.abort();
-    }
-    request = $.ajax({
-        url: "/Paginate",
-        type: "GET",
-        contentType: "application/json; charset=utf-8"
-    });
+//$(document).ready(function () {
+//    $('#myTable').DataTable({
+//        pageLength: 2,
+//        ajax: {
+//            url: '/Paginate',
+//            method: 'POST',
+//            data: 2,
+//            beforeSend: function (xhr) {
+//            xhr.setRequestHeader("XSRF-TOKEN",
+//                $('input:hidden[name="__RequestVerificationToken"]').val());
+//            },
+//            success: function (data) {
+//                console.log(data);
+//            }
+//        },
+//        columns: [
+//            {
+//                title: 'Id',
+//                data: 'Id'
+//            },
+//            {
+//                title: 'Name',
+//                data: 'Name'
+//            }
+//        ]
+//    });
+//});
 
-    request.done(function (response) {
-        //console.log(response);
-        $('#responsesmessage').text(response);
-    });
+//$("#listresponses .pagination .page-item").click(function () {
+//    var pagenum = $(this).text();
+//    console.log(pagenum);
 
-    request.fail(function (jqXHR, textStatus, errorThrown) {
-        console.error(
-            "The following error occurred: " + textStatus
-        );
-    });
-});
+//    var datapack = {
+//        "pagenumber": pagenum
+//    };
+//    //listresponses_table
+//    var request;
+//     //Abort any pending request
+//    if (request) {
+//        request.abort();
+//    }
+
+//    request = $.ajax({
+//        url: "/Paginate/",
+//        type: "POST",
+//        beforeSend: function (xhr) {
+//            xhr.setRequestHeader("XSRF-TOKEN",
+//                $('input:hidden[name="__RequestVerificationToken"]').val());
+//        },
+//        data: pagenum,
+//        contentType: "application/json; charset=utf-8",
+//        dataType: "json",
+//    });
+
+//    request.done(function (response) {
+//        //console.log(response);
+//        $('#responsesmessage').html(response);
+//    });
+
+//    request.fail(function (jqXHR, textStatus, errorThrown) {
+//        console.error(
+//            "Error: " + textStatus
+//        );
+//    });
+//});
 
 //$("#listpage_searchform").submit(function () {
 //    var jqxhr = $.post('ListResponses', $('#searchbox').val())
