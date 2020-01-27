@@ -3,33 +3,25 @@
 
 // Write your JavaScript code.
 
-//$(document).ready(function () {
-//    $('#myTable').DataTable({
-//        pageLength: 2,
-//        ajax: {
-//            url: '/Paginate',
-//            method: 'POST',
-//            data: 2,
-//            beforeSend: function (xhr) {
-//            xhr.setRequestHeader("XSRF-TOKEN",
-//                $('input:hidden[name="__RequestVerificationToken"]').val());
-//            },
-//            success: function (data) {
-//                console.log(data);
-//            }
-//        },
-//        columns: [
-//            {
-//                title: 'Id',
-//                data: 'Id'
-//            },
-//            {
-//                title: 'Name',
-//                data: 'Name'
-//            }
-//        ]
-//    });
-//});
+$(document).ready(function () {
+    $('#responsetable').DataTable({
+        "pageLength": 3,
+        "processing": true,
+        "bSearchable": true,
+        "bFilter": true,
+        "ajax": "/GuestCRUD/GetJsonData",
+        "columnDefs": [{
+            "orderable": false,
+            "targets": 4,
+            "render": function (data, type, row) {
+                return `<button type="submit" class="btn btn-info btn-sm" onclick="window.location.href='/GuestCRUD/EditGuest/${data}'" value='${data}'><i class="fas fa-edit"></i></button>
+
+                        <button type="submit" class="btn btn-danger btn-sm show-bs-modal" onclick="window.location.href='/GuestCRUD/DeleteGuest/${data}'" data-id='${data}' value='${data}'> <i class="fas fa-trash"></i></button>`;
+            }
+        }]
+
+    });
+});
 
 //$("#listresponses .pagination .page-item").click(function () {
 //    var pagenum = $(this).text();
@@ -58,7 +50,7 @@
 //    });
 
 //    request.done(function (response) {
-//        //console.log(response);
+//        console.log(response);
 //        $('#responsesmessage').html(response);
 //    });
 

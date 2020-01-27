@@ -29,6 +29,39 @@ namespace PartyInvite.Controllers
             return "Hello";
         }
 
+        [HttpGet("GetJsonData")]
+        public IActionResult GetJsonData()
+        {
+
+            var data = GetFormattedData();
+
+            return Json(data);
+        }
+
+        public object GetFormattedData()
+        {
+            int total = 0;
+            int totalFiltered = 0;
+            var records = _guestResponseService
+                .GetAllGuestsService();
+
+            return new
+            {
+                recordsTotal = total,
+                recordsFiltered = totalFiltered,
+                data = (from record in records
+                        select new string[]
+                        {
+                                record.Id.ToString(),
+                                record.Name,
+                                record.Phone,
+                                record.GiftName,
+                                record.Id.ToString()
+                        }
+                    ).ToArray()
+            };
+        }
+
         [HttpGet("GetGuest/{id}")]
         public JsonResult GetGuest(int id)
         {

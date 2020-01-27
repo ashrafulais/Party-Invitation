@@ -12,7 +12,6 @@ using PartyInvite.Models;
 
 namespace PartyInvite.Controllers
 {
-    //[Route("[controller]/[action]")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -49,6 +48,7 @@ namespace PartyInvite.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ViewResult RvspForm(GuestResponse guestResponse)
         {
             if (ModelState.IsValid)
@@ -72,9 +72,7 @@ namespace PartyInvite.Controllers
         {
             try
             {
-                return View(
-                    _guestResponseService.GetAllGuestsService()
-                    );
+                return View();
             }
             catch (Exception e)
             {
@@ -82,54 +80,55 @@ namespace PartyInvite.Controllers
                 return View("Message");
             }
         }
+        
 
-        [HttpPost]
-        public ViewResult ListResponses(string search)
-        {
-            try
-            {
-                if (!string.IsNullOrEmpty(search))
-                {
-                    return View(
-                        _guestResponseService.SearchGuestsService(search));
-                }
-                else
-                {
-                    throw new Exception("Invalid input");
-                }
-            }
-            catch (Exception e)
-            {
-                ViewData["Message"] = "Failed searching:" + e.Message;
-                return View("Message");
-            }
-        }
+        //[HttpPost]
+        //public ViewResult ListResponses(string search)
+        //{
+        //    try
+        //    {
+        //        if (!string.IsNullOrEmpty(search))
+        //        {
+        //            return View(
+        //                _guestResponseService.SearchGuestsService(search));
+        //        }
+        //        else
+        //        {
+        //            throw new Exception("Invalid input");
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        ViewData["Message"] = "Failed searching:" + e.Message;
+        //        return View("Message");
+        //    }
+        //}
 
-        [HttpPost("Paginate")]
-        public string Paginate(int pagenumber)
-        {
-            try
-            {
-                int pagesize = 2;
+        //[HttpPost("Paginate")]
+        //public string Paginate([FromBody]Pager page)
+        //{
+        //    try
+        //    {
+        //        int pagesize = 2;
 
-                if (pagenumber > 0)
-                {
-                    return JsonSerializer
-                    .Serialize(_guestResponseService
-                    .PaginateService(pagenumber, pagesize)
-                    );
-                }
-                else
-                {
-                    throw new Exception("Invalid input");
-                }
-            }
-            catch (Exception e)
-            {
-                //["Message"] = "Failed:" + e.Message;
-                return "Failed Msg: " + e.Message;
-            }
-        }
+        //        if (page.pagenumber > 0)
+        //        {
+        //            return JsonSerializer
+        //            .Serialize(_guestResponseService
+        //            .PaginateService(page.pagenumber, pagesize)
+        //            );
+        //        }
+        //        else
+        //        {
+        //            throw new Exception("Invalid input");
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        //["Message"] = "Failed:" + e.Message;
+        //        return "Failed Msg: " + e.Message;
+        //    }
+        //}
 
         public IActionResult About()
         {

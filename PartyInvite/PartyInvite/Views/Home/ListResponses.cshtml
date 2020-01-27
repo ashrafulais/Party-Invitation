@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PartyInvite.Model.GuestResponse>
+﻿@*@model IEnumerable<PartyInvite.Model.GuestResponse>*@
 
 @{
     ViewData["Title"] = "Responses";
@@ -10,7 +10,20 @@
     <p id="responsesmessage"> </p>
 </div>
 
-<div class="row mt-2 mb-2">    
+<table id="responsetable" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Gift</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+</table>
+
+@*<div class="row mt-2 mb-2">    
     <form id="listpage_searchform" class="form-inline" method="post">
         <div class="form-group">
             <label for="searchtext">Search text: </label>
@@ -64,4 +77,4 @@
             <li class="page-item"><a class="page-link" href="#">@i</a></li>
         }
     </ul>
-</div>
+</div>*@
